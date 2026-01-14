@@ -19,8 +19,8 @@ public class RatingDriver {
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(FloatWritable.class);
 
-        FileInputFormat.addInputPath(job, new Path("/amazon_reviews"));
-        FileOutputFormat.setOutputPath(job, new Path("/output_ratings"));
+        FileInputFormat.addInputPath(job, new Path(args[0]));
+        FileOutputFormat.setOutputPath(job, new Path(args[1]));
 
         System.exit(job.waitForCompletion(true) ? 0 : 1);
     }

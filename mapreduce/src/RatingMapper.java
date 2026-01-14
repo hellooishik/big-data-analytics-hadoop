@@ -8,9 +8,13 @@ public class RatingMapper extends Mapper<LongWritable, Text, Text, IntWritable> 
             throws IOException, InterruptedException {
 
         String[] fields = value.toString().split(",");
-        if (!fields[4].equals("star_rating")) {
-            context.write(new Text(fields[3]),
-                          new IntWritable(Integer.parseInt(fields[5])));
+        if (fields.length > 5 && !fields[4].equals("star_rating")) {
+            try {
+                context.write(new Text(fields[3]),
+                              new IntWritable(Integer.parseInt(fields[5])));
+            } catch (NumberFormatException e) {
+                // Ignore malformed lines
+            }
         }
     }
 }
